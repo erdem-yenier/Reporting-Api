@@ -5,7 +5,7 @@
 @section('content')
 
     <div>
-        <form method="POST" action="">
+        <form method="POST" action="{{ route('dashboard.report.post') }}">
           @csrf
             <input type="hidden" id="from_date" name="from_date" value="2015-07-01">
             <input type="hidden" id="to_date" name="to_date" value="2015-10-01">
@@ -25,34 +25,33 @@
             </div>
           </form>
 
-          <h2>Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Count</th>
-                  <th>Total</th>
-                  <th>Currency</th>
-                </tr>
-              </thead>
-              <tbody>
-                @if (isset($data))
-                  {{ print_r($data) }}
-                @endif
-              </tbody>
-            </table>
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Response Data</h5>
+            </div>
+            <div class="card-body">
+              @if (isset($response_data))
+                  @foreach ($response_data['data'] as $key => $item)
+                    <p class="card-text">{{ $key }} - {{ $item }}</p>
+                  @endforeach
+              @endif
+            </div>
           </div>
     </div>
-    @if(session()->has('reportSuccess'))
-      {{ session()->get('reportSuccess') }}
-    @endif
 @endsection
 
 @section('scripts')
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+  @if (isset($response_data))
+    <script>
+        Toast.fire({
+            icon: "{{ $response_data['status'] }}",
+            title: "{{ $response_data['message'] }}"
+        }); 
+    </script>
+  @endif
 
   <script>
 

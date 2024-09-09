@@ -22,7 +22,10 @@ Route::controller(MainController::class)
         Route::get('/report', 'report')->name('report');
         Route::post('/report', 'reportPost')->name('report.post');
         Route::get('/query', 'query')->name('query');
+        Route::post('/query', 'queryPost')->name('query.post');
         Route::get('/transaction', 'transaction')->name('transaction');
+        Route::post('/transaction', 'transactionPost')->name('transaction.post');
         Route::get('/client', 'client')->name('client');
+        Route::post('/client', 'clientPost')->name('client.post');
     });
 
