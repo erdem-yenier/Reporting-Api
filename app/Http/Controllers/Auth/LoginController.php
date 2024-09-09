@@ -49,7 +49,7 @@ class LoginController extends Controller
 
     }
 
-    ########### giriş yapma
+    ########### token temizleme
     public function logout()
     {
         session()->flush();
